@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+
 
 class ViewController: UIViewController , UITableViewDataSource, UITableViewDelegate , YourCellDelegate{
         
@@ -17,8 +19,8 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     let url = URL(string: "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=boolean")
     
     var result = [Result]()
-    //var tappedResult = ""
     var score = 0
+    var buttonTapped = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +29,6 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         tableView.dataSource = self
         
         downloadJSON {
-          
-            
         }
         
         tableView.register(UINib(nibName: "cusXib", bundle: nil), forCellReuseIdentifier: "customCell")
@@ -45,7 +45,6 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomTableViewCell
         cell.delegate = self
         cell.questionLabel.text = result[indexPath.row].question
-        //checkResult(T: result[indexPath.row].correct_answer, F: tappedResult)
         return cell
     }
     
@@ -59,13 +58,28 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         if (T == F){
             if score < 10{
             score = score + 1
-            scoreLabel.text = String(score)
+            
+                scoreLabel.text =  "Score: " + String(score) + " /10"
+                SVProgressHUD.showSuccess(withStatus: "Correct")
+                SVProgressHUD.dismiss(withDelay: 1)
+                SVProgressHUD.setBackgroundColor(UIColor.init(red: 197.0/255.0, green: 187.0/255.0, blue: 117.0/255.0 , alpha: 1))
             print("Score is  + \(score)")
             }else {
                 score = 0
-                scoreLabel.text = String(score)
+                scoreLabel.text = "Score: " + String(score) + " /10"
             }
             
+        }else{
+            SVProgressHUD.showError(withStatus: "Wrong")
+            SVProgressHUD.dismiss(withDelay: 1)
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDataF" {
+            let destination = segue.destination as? SecondViewController
+            destination?.data =  score
         }
     }
     
@@ -76,10 +90,29 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     func didTapButton(_ sender: UIButton) {
         if let indexPath = getCurrentCellIndexPath(sender) {
             let getString = checkTag(tag: sender.tag)
-            checkResult(T: result[indexPath.row].correct_answer, F: getString)
-            print(indexPath.row)
-            print(sender.tag)
+            
+                if buttonTapped < 9{
+                buttonTapped = buttonTapped + 1
+                    print("buttonTap")
+                    print(buttonTapped)
+                
+                checkResult(T: result[indexPath.row].correct_answer, F: getString)
+                print(indexPath.row)
+                print(sender.tag)
+                }
+                    
+                else {
+                     performSegue(withIdentifier: "showDataF", sender: self)
+                    score = 0
+                    scoreLabel.text = "Score: " + String(score) + " /10"
+                    buttonTapped = 0
+                    
+                }
         }
+    }
+    
+    func changeButtonColor(){
+        
     }
     
     func getCurrentCellIndexPath(_ sender: UIButton) -> IndexPath? {
@@ -95,8 +128,6 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         
         //URLSession.shared.dataTask(with: url!) { (data, response, error) in
         URLSession.shared.dataTask(with: url!) { [weak self](data, response, error) in
-            
-            
             if error == nil {
                 do
                 {

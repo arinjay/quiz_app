@@ -32,7 +32,7 @@
                     </label>
                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pq3-i8-TRX" customClass="roundButton" customModule="Quiz_App" customModuleProvider="target">
                         <rect key="frame" x="185.5" y="69" width="93.5" height="33"/>
-                        <color key="backgroundColor" red="0.78649991750717163" green="0.24683293700218201" blue="0.27023142576217651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.78649991750000003" green="0.246832937" blue="0.27023142579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Pq3-i8-TRX" secondAttribute="height" multiplier="17:6" id="e6m-0Y-Vqf"/>
                         </constraints>
@@ -57,7 +57,7 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRm-HF-nsx" customClass="roundButton" customModule="Quiz_App" customModuleProvider="target">
                         <rect key="frame" x="43" y="69" width="93.5" height="33"/>
-                        <color key="backgroundColor" red="0.2984657883644104" green="0.59287363290786743" blue="0.24987399578094482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="rRm-HF-nsx" secondAttribute="height" multiplier="17:6" id="tCo-yf-wv4"/>
                         </constraints>
